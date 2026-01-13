@@ -1,13 +1,21 @@
 # RaspberryAwards
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
+An Angular application for viewing information about Golden Raspberry Awards winners, allowing users to consult statistics, filter movies by year, and view producers with multiple awards.
+
+## Requirements
+
+- **Node.js**: version 20.x or higher
+- **npm**: version 10.8.2 or higher
+
+This project using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
 
 ## Development server
 
 To start a local development server, run:
 
 ```bash
-ng serve
+npm install
+npm start
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
