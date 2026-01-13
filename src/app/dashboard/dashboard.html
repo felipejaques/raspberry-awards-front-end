@@ -1,0 +1,179 @@
+<div class="dashboard">
+  <div class="dashboard-grid">
+    <!-- Painel 1: Anos com múltiplos vencedores -->
+    <div class="panel">
+      <h2>List years with multiple winners</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Win Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if (multipleWinnersYears().length > 0) {
+              @for (item of multipleWinnersYears(); track item.year) {
+                <tr>
+                  <td>{{ item.year }}</td>
+                  <td>{{ item.winnerCount }}</td>
+                </tr>
+              }
+            } @else {
+              <tr>
+                <td colspan="2" class="no-data">Loading...</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Painel 2: Top 3 estúdios -->
+    <div class="panel">
+      <h2>Top 3 studios with winners</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Win Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if (topStudios().length > 0) {
+              @for (studio of topStudios(); track studio.name) {
+                <tr>
+                  <td>{{ studio.name }}</td>
+                  <td>{{ studio.winCount }}</td>
+                </tr>
+              }
+            } @else {
+              <tr>
+                <td colspan="2" class="no-data">Loading...</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Painel 3: Produtores com maior e menor intervalo -->
+    <div class="panel panel-wide">
+      <h2>Producers with longest and shortest interval between wins</h2>
+      <div class="producers-grid">
+        <div class="producer-section">
+          <h3>Maximum</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Producer</th>
+                  <th>Interval</th>
+                  <th>Previous Year</th>
+                  <th>Following Year</th>
+                </tr>
+              </thead>
+              <tbody>
+                @if (maxIntervalProducers().length > 0) {
+                  @for (producer of maxIntervalProducers(); track producer.producer) {
+                    <tr>
+                      <td>{{ producer.producer }}</td>
+                      <td>{{ producer.interval }}</td>
+                      <td>{{ producer.previousWin }}</td>
+                      <td>{{ producer.followingWin }}</td>
+                    </tr>
+                  }
+                } @else {
+                  <tr>
+                    <td colspan="4" class="no-data">Loading...</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="producer-section">
+          <h3>Minimum</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Producer</th>
+                  <th>Interval</th>
+                  <th>Previous Year</th>
+                  <th>Following Year</th>
+                </tr>
+              </thead>
+              <tbody>
+                @if (minIntervalProducers().length > 0) {
+                  @for (producer of minIntervalProducers(); track producer.producer) {
+                    <tr>
+                      <td>{{ producer.producer }}</td>
+                      <td>{{ producer.interval }}</td>
+                      <td>{{ producer.previousWin }}</td>
+                      <td>{{ producer.followingWin }}</td>
+                    </tr>
+                  }
+                } @else {
+                  <tr>
+                    <td colspan="4" class="no-data">Loading...</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Painel 4: Busca de vencedores por ano -->
+    <div class="panel">
+      <h2>List movie winners by year</h2>
+      <div class="search-container">
+        <label for="yearSearch">Search by year</label>
+        <div class="search-input-group">
+          <input 
+            type="number" 
+            id="yearSearch" 
+            [(ngModel)]="searchYear"
+            placeholder="Enter year"
+            (keyup.enter)="searchMoviesByYear()"
+          />
+          <button (click)="searchMoviesByYear()" class="search-btn">🔍</button>
+        </div>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Year</th>
+              <th>Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if (searchResults().length > 0) {
+              @for (movie of searchResults(); track movie.id) {
+                <tr>
+                  <td>{{ movie.id }}</td>
+                  <td>{{ movie.year }}</td>
+                  <td>{{ movie.title }}</td>
+                </tr>
+              }
+            } @else if (searchPerformed()) {
+              <tr>
+                <td colspan="3" class="no-data">No results found for year {{ searchYear }}</td>
+              </tr>
+            } @else {
+              <tr>
+                <td colspan="3" class="no-data">Enter a year to search</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

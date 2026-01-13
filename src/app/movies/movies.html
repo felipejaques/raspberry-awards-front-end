@@ -1,0 +1,108 @@
+<div class="movies-list">
+  <h1>List movies</h1>
+  
+  <div class="filters">
+    <div class="filter-group">
+      <label for="yearFilter">Year</label>
+      <input 
+        type="number" 
+        id="yearFilter" 
+        [(ngModel)]="filterYear"
+        placeholder="Filter by year"
+        (ngModelChange)="applyFilters()"
+      />
+    </div>
+    
+    <div class="filter-group">
+      <label for="winnerFilter">Winner?</label>
+      <select 
+        id="winnerFilter" 
+        [(ngModel)]="filterWinner"
+        (ngModelChange)="applyFilters()"
+      >
+        <option [ngValue]="null">Yes/No</option>
+        <option [ngValue]="true">Yes</option>
+        <option [ngValue]="false">No</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="movies-table">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Year</th>
+          <th>Title</th>
+          <th>Winner?</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (loading()) {
+          <tr>
+            <td colspan="4" class="no-data">Loading...</td>
+          </tr>
+        } @else if (movies().length > 0) {
+          @for (movie of movies(); track movie.id) {
+            <tr>
+              <td>{{ movie.id }}</td>
+              <td>{{ movie.year }}</td>
+              <td>{{ movie.title }}</td>
+              <td>{{ movie.winner ? 'Yes' : 'No' }}</td>
+            </tr>
+          }
+        } @else {
+          <tr>
+            <td colspan="4" class="no-data">No movies found</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  @if (totalPages() > 1) {
+    <div class="pagination">
+      <button 
+        class="pagination-btn" 
+        (click)="goToFirstPage()"
+        [disabled]="currentPage() === 0"
+      >
+        «
+      </button>
+      
+      <button 
+        class="pagination-btn" 
+        (click)="previousPage()"
+        [disabled]="currentPage() === 0"
+      >
+        ‹
+      </button>
+      
+      @for (page of visiblePages(); track page) {
+        <button 
+          class="pagination-btn" 
+          [class.active]="page === currentPage()"
+          (click)="goToPage(page)"
+        >
+          {{ page + 1 }}
+        </button>
+      }
+      
+      <button 
+        class="pagination-btn" 
+        (click)="nextPage()"
+        [disabled]="currentPage() === totalPages() - 1"
+      >
+        ›
+      </button>
+      
+      <button 
+        class="pagination-btn" 
+        (click)="goToLastPage()"
+        [disabled]="currentPage() === totalPages() - 1"
+      >
+        »
+      </button>
+    </div>
+  }
+</div>
