@@ -89,7 +89,7 @@ export class MovieService {
 
   public getMovieWinnersByYear(year: number): Observable<MovieWinner[]> {
     return this.http.get<MovieWinner[]>(
-      `${this.apiBaseUrl}?page=9&size=99&winner=true&year=${year}`
+      `${this.apiBaseUrl}/winnersByYear?year=${year}`
     );
   }
 

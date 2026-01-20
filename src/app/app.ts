@@ -10,4 +10,13 @@ import { Sidebar } from './sidebar/sidebar';
 })
 export class App {
   protected readonly title = signal('raspberry-awards');
+  sidebarOpen = signal(false);
+
+  public toggleSidebar(): void {
+    this.sidebarOpen.update(value => !value);
+  }
+
+  public closeSidebar(): void {
+    this.sidebarOpen.set(false);
+  }
 }

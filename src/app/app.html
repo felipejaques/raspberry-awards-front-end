@@ -1,5 +1,9 @@
 <div class="app-container">
-  <app-sidebar />
+  <button class="mobile-menu-toggle" (click)="toggleSidebar()" aria-label="Toggle menu">
+    ☰
+  </button>  
+  <div class="sidebar-overlay" [class.active]="sidebarOpen()" (click)="closeSidebar()"></div>
+  <app-sidebar [isOpen]="sidebarOpen()" (closeSidebar)="closeSidebar()" />
   <main class="main-content">
     <router-outlet />
   </main>

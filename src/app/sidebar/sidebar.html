@@ -1,13 +1,13 @@
-<aside class="sidebar">
+<aside class="sidebar" [class.mobile-open]="isOpen()">
   <div class="sidebar-header">
     <h2>Raspberry Awards</h2>
   </div>
   <nav class="sidebar-nav">
-    <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+    <a routerLink="/dashboard" routerLinkActive="active" class="nav-item" (click)="close()">
       <span class="icon">📊</span>
       <span>Dashboard</span>
     </a>
-    <a routerLink="/movies" routerLinkActive="active" class="nav-item">
+    <a routerLink="/movies" routerLinkActive="active" class="nav-item" (click)="close()">
       <span class="icon">🎬</span>
       <span>Lista de Filmes</span>
     </a>

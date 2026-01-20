@@ -1,5 +1,7 @@
 import { Component, signal, OnInit, computed, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MovieService, Movie } from '../services/movie.service';
 
 @Component({
@@ -19,16 +21,33 @@ export class Movies implements OnInit {
   filterYear: number | null = null;
   filterWinner: boolean | null = null;
 
+  private filterSubject = new Subject<{ year: number | null; winner: boolean | null }>();
+
   constructor(private movieService: MovieService) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
+    this.filterSubject
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged((prev, curr) =>
+          prev.year === curr.year && prev.winner === curr.winner
+        )
+      )
+      .subscribe((filters) => {
+        if (filters.year !== null && filters.year.toString().length < 4) {
+          return;
+        }
+
+        this.currentPage.set(0);
+        this.loadMovies();
+      });
+
     this.loadMovies();
   }
 
 
   public applyFilters(): void {
-    this.currentPage.set(0);
-    this.loadMovies();
+    this.filterSubject.next({ year: this.filterYear, winner: this.filterWinner });
   }
 
   public goToPage(page: number): void {

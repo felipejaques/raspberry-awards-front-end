@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -7,4 +7,11 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss'
 })
-export class Sidebar {}
+export class Sidebar {
+  isOpen = input<boolean>(false);
+  closeSidebar = output<void>();
+
+  public close(): void {
+    this.closeSidebar.emit();
+  }
+}

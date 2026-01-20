@@ -3,10 +3,19 @@
   max-width: 1400px;
   margin: 0 auto;
 
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
+
   h1 {
     color: #2c3e50;
     margin-bottom: 20px;
     font-size: 1.5rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
   }
 
   .filters {
@@ -15,16 +24,35 @@
     margin-bottom: 20px;
     flex-wrap: wrap;
 
+    @media (max-width: 768px) {
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
     .filter-group {
       display: flex;
       flex-direction: column;
       min-width: 200px;
+      flex: 1;
+
+      @media (max-width: 768px) {
+        min-width: 120px;
+      }
+
+      @media (max-width: 480px) {
+        min-width: 100%;
+      }
 
       label {
         margin-bottom: 8px;
         color: #495057;
         font-weight: 500;
         font-size: 0.9rem;
+
+        @media (max-width: 768px) {
+          font-size: 0.85rem;
+          margin-bottom: 6px;
+        }
       }
 
       input,
@@ -35,6 +63,11 @@
         font-size: 0.9rem;
         transition: border-color 0.2s;
         background: white;
+
+        @media (max-width: 768px) {
+          padding: 8px 10px;
+          font-size: 0.85rem;
+        }
 
         &:focus {
           outline: none;
@@ -60,10 +93,30 @@
     overflow: hidden;
     margin-bottom: 20px;
 
+    @media (max-width: 768px) {
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+
+    // Adiciona scroll horizontal em telas pequenas
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.9rem;
+      min-width: 600px; // Garante largura mínima
+
+      @media (max-width: 768px) {
+        font-size: 0.8rem;
+        min-width: 500px;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 0.75rem;
+        min-width: 450px;
+      }
 
       thead {
         background: #f8f9fa;
@@ -74,6 +127,11 @@
           font-weight: 600;
           color: #2c3e50;
           border-bottom: 2px solid #dee2e6;
+          white-space: nowrap;
+
+          @media (max-width: 768px) {
+            padding: 10px 8px;
+          }
         }
       }
 
@@ -94,11 +152,20 @@
             padding: 12px;
             color: #495057;
 
+            @media (max-width: 768px) {
+              padding: 10px 8px;
+            }
+
             &.no-data {
               text-align: center;
               color: #6c757d;
               font-style: italic;
               padding: 40px;
+
+              @media (max-width: 768px) {
+                padding: 20px;
+                font-size: 0.85rem;
+              }
             }
           }
         }
@@ -112,6 +179,12 @@
     align-items: center;
     gap: 5px;
     padding: 20px 0;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+      padding: 15px 0;
+      gap: 3px;
+    }
 
     .pagination-btn {
       min-width: 40px;
@@ -124,6 +197,20 @@
       cursor: pointer;
       font-size: 0.9rem;
       transition: all 0.2s;
+
+      @media (max-width: 768px) {
+        min-width: 35px;
+        height: 35px;
+        padding: 6px 10px;
+        font-size: 0.8rem;
+      }
+
+      @media (max-width: 480px) {
+        min-width: 32px;
+        height: 32px;
+        padding: 5px 8px;
+        font-size: 0.75rem;
+      }
 
       &:hover:not(:disabled) {
         background: #f8f9fa;
